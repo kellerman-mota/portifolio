@@ -1,0 +1,34 @@
+extends ../layouts/default
+
+block intro
+	.container
+		h1 Entre em contato Conosco
+		
+block content
+	.container
+		if enquirySubmitted
+			h3 Agradecemos o seu feedback.
+		else
+			.row: .col-sm-8.col-md-6
+				form(method='post')
+					input(type='hidden', name='action', value='contact')
+					.form-group(class=validationErrors.name ? 'has-error' : null)
+						label Nome
+						input(type='text', name='name.full', value=formData['name.full']).form-control
+					.form-group(class=validationErrors.email ? 'has-error' : null)
+						label Email
+						input(type='email', name='email', value=formData.email).form-control
+					.form-group
+						label Telefone
+						input(type='text', name='phone', value=formData.phone, placeholder='(opcional)').form-control
+					.form-group(class=validationErrors.enquiryType ? 'has-error' : null)
+						label Qual o motivo do seu contato?
+						select(name='enquiryType').form-control
+							option(value='') (Selecione)
+							each type in enquiryTypes
+								option(value=type.value, selected=formData.enquiryType == type.value)= type.label
+					.form-group(class=validationErrors.message ? 'has-error' : null)
+						label Mensagem
+						textarea(name='message', placeholder='Deixe-nos uma mensagem...' rows=4).form-control= formData.message
+					.form-actions
+						button(type='submit').btn.btn-primary Send
