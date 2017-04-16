@@ -3,9 +3,12 @@ extends ../layouts/default
 block content
 	.container
 		if portifolios.length
-			each port in portifolios
-				a(href='portifolio')
-					h2= port.title
-					.row.gallery-images
-						if port.heroImage.exists
-							.col-sm-4.col-md-4.gallery-image: img(src=port._.heroImage.limit(680,680)).img-rounded
+			ul.list-inline
+				each port in portifolios
+					li
+						a(href='portifolio')
+							div(style='padding: 1em')
+								h3=port.title
+								img(src=port._.heroImage.limit(400,400)).img-rounded.img-responsive
+							
+							
